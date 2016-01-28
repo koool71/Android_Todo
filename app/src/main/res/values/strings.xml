@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">MySchedule</string>
-    <string name="title">My Todo List</string>
-    <string name ="newItemPrompt">Enter a new task!</string>
+    <string name="title">Todo List</string>
+    <string name ="newItemPrompt"><b>Enter a new task!</b></string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="add">Add To List</string>
 </resources>

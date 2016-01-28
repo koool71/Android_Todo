@@ -3,19 +3,47 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#FF33B5E5"
     tools:context=".MainActivity">
 
     <TextView
         android:id="@+id/sTitle"
         android:text="@string/title"
-        android:gravity="center"
+        android:textSize="25dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textColor = "#FFFFFF"
+        android:textStyle="bold"/>
 
-    <EditText
-        android:id="@+id/newItem"
-        android:text="@string/newItemPrompt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <LinearLayout android:id="@+id/addLayout1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/addButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="add"
+            android:layout_gravity="right"
+            android:text="@string/add"
+            android:background="#ffe9e9ff"/>
+
+        <LinearLayout android:id="@+id/addLayout2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/newItem"
+                android:hint="@string/newItemPrompt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </LinearLayout>
