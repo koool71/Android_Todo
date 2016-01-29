@@ -1,17 +1,49 @@
 package org.mhacks.myschedule;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainActivity extends ActionBarActivity {
+
+    ListView todo;
+    List<String> list = new ArrayList<String>();
+    ArrayAdapter<String> adapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        todo = (ListView) findViewById(R.id.list);
+
+        adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, android.R.id.text1, list);
+        todo.setAdapter(adapter);
+
+        todo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                int itemPosition = position;
+                String itemValue = (String) todo.getItemAtPosition(position);
+
+                Toast.makeText(getApplicationContext(), "Position :" + itemPosition + "List Item: " + itemValue,
+                        Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     @Override
@@ -34,5 +66,15 @@ public class MainActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    // Add items to the list on button click
+    public void add(View view)
+    {
+        EditText editText = (EditText) findViewById(R.id.newItem);
+        String message = editText.getText().toString();
+        editText.setText("");
+        list.add(message);
+        adapter.notifyDataSetChanged();
     }
 }
