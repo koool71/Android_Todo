@@ -1,5 +1,8 @@
 package org.mhacks.myschedule;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -21,7 +24,7 @@ public class MainActivity extends ActionBarActivity {
     ListView todo;
     List<String> list = new ArrayList<String>();
     ArrayAdapter<String> adapter;
-
+    final Context context = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,14 +37,32 @@ public class MainActivity extends ActionBarActivity {
                 android.R.layout.simple_list_item_1, android.R.id.text1, list);
         todo.setAdapter(adapter);
 
+        // Allows removal of items from the list once completed
         todo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                int itemPosition = position;
-                String itemValue = (String) todo.getItemAtPosition(position);
+            public void onItemClick(AdapterView<?> parent, View view, int position, final long id) {
+                final int index = position;
+                AlertDialog.Builder alert = new AlertDialog.Builder(context);
+                alert.setTitle("Finished With Task?");
+                alert.setMessage("Click yes to mark task as complete and remove from  your list.");
+                alert.setCancelable(false);
+                alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String toRemove = adapter.getItem(index);
+                        adapter.remove(toRemove);
+                    }
+                });
+                alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
 
-                Toast.makeText(getApplicationContext(), "Position :" + itemPosition + "List Item: " + itemValue,
-                        Toast.LENGTH_LONG).show();
+                        AlertDialog ad = alert.create();
+                ad.show();
+
             }
         });
     }
